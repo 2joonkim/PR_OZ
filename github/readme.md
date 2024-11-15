@@ -7,6 +7,6 @@ Git파일 commit 하는 순서
 4. mkdir 폴더 만들기 (3개 database ,github, python)
 5. cd (디렉토리 이동)
 6. touch readme.md (파일 제작)
-7. git add (깃 add)
+7. git add . (깃 add)
 8. git status (현재 상황 확인)
-9. git remote add 인터넷 주소
+9. git remote add (깃 헙 주소)
