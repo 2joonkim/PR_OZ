@@ -1,0 +1,28 @@
+
+*{
+    text-align: center;
+}
+
+html{
+    background-color: #B3a194;
+    font-size: 16px;
+    font-family: "Do Hyeon", serif;
+}
+
+body{
+    width: 640px;
+    margin: auto;
+}
+
+h1{
+    font-size: 40px;
+}
+
+img{
+    width: 250px;
+    border-radius: 100px;
+}
+
+p{
+    font-size: 1.1rem;
+}
