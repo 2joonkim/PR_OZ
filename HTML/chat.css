@@ -1,0 +1,79 @@
+*{
+    box-sizing: border-box;
+}
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    margin: 0;
+}
+.container{
+    height: 100%;
+    background-color: #fcc41f;
+
+}
+.chat-screen{
+    height: calc(100% - 120px);
+}
+
+.user{
+    background-color: white;
+    padding: 16px;
+    height: 80px;
+}
+
+.user__column{
+    float: left;
+}
+
+.user__pic{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: #fcc41f;
+}
+
+.user__nick, .user__count{
+    margin:5px;
+    font-family: "Do Hyeon", serif;
+}
+.user__count{
+    font-size: 13px;
+    color: gray;
+}
+
+.chat-form{
+    height: 120px;
+    background-color: white;
+}
+.chat-form__field{
+    height: 120px;
+}
+.chat-form__msg{
+    float: left;
+    width: calc(100% - 120px);
+    height: 120px;
+    border: none;
+    resize: none;
+    font-size: 24px;
+    padding: 10px;
+}
+.chat-from__bt{
+    float: right;
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: #fcc41f;
+    font-size: 18px;
+}
+
+.chat-form__msg:focus{
+    outline: none;
+}
+
+.chat-from__bt:active{
+    background-color: #cb9d12;
+}
+
