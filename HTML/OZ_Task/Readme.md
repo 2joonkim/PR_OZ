@@ -1,6 +1,5 @@
 # 📝 Kream_page / user.from HTML 문서 제작
 
-![License Badge](https://img.shields.io/badge/license-MIT-blue)  
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
@@ -22,14 +21,6 @@
   - CSS를 이용하여 제작
   - 다크모드/ 라이트모드 추가
   - 가입 완료 시 Kream_page로 랜딩 완료
-
----
-
-## ⚒ 개발 과정  
-
-1. **JSON 파일 기반 데이터 저장**: 작업 데이터를 `tasks.json` 파일에 저장하고 불러옵니다.  
-2. **동적 사용자 입력 처리**: 메뉴 옵션에 따라 작업 추가, 보기, 완료 처리, 삭제 등의 기능을 제공합니다.  
-3. **에러 처리**: 잘못된 입력에 대해 적절한 오류 메시지를 출력해 사용자 경험을 향상시켰습니다.  
 
 ---
 
