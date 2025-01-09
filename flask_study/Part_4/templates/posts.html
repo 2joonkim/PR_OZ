@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Posts</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Blog Posts</h1>
+
+    <h2>Create a New Post</h2>
+    <form id="postForm">
+        <input type="hidden" id="postId" value="">
+        Title: <input type="text" id="title"><br>
+        Content:<br>
+        <textarea id="content"></textarea><br>
+        <input type="submit" value="Create Post" id="createButton">
+        <input type="button" value="Update Post" id="updateButton" onclick="submitUpdateForm()" style="display: none;">
+    </form>
+
+    <hr>
+
+    <h2>All Posts</h2>
+    <ul id="postsList"></ul>
+
+    <script>
+        let currentEditingId = null; // 현재 편집 중인 게시글의 ID를 추적하는 변수
+
+        function submitCreateForm(e) {
+            e.preventDefault();
+            const title = document.getElementById("title").value;
+            const content = document.getElementById("content").value;
+            createNewPost(title, content);
+        }
+
+        function submitUpdateForm() {
+            const title = document.getElementById("title").value;
+            const content = document.getElementById("content").value;
+            updatePost(currentEditingId, title, content);
+        }
+
+        function createNewPost(title, content) {
+            axios.post('/posts', { title, content })
+                .then(function (response) {
+                    console.log(response);
+                    loadPosts();
+                    resetForm();
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+
+        function updatePost(id, title, content) {
+            axios.put('/posts/' + id, { title, content })
+                .then(function (response) {
+                    console.log(response);
+                    loadPosts();
+                    resetForm();
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+
+        // 게시글 목록을 불러오는 함수
+        function loadPosts() {
+            axios.get('/posts')
+                .then(function (response) {
+                    const posts = response.data;
+                    const postsList = document.getElementById("postsList");
+                    postsList.innerHTML = ''; // 기존 게시글 초기화
+
+                    // 각 게시글을 HTML에 추가
+                    posts.forEach(function(post) {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <strong>${post.title}</strong><br>
+                            ${post.content}<br>
+                            <button onclick="loadPostForEditing(${post.id})">Edit</button>
+                            <button onclick="deletePost(${post.id})">Delete</button>
+                        `;
+                        postsList.appendChild(li);
+                    });
+                })
+                .catch(function (error) {
+                    console.error("Error loading posts:", error);
+                    alert("Failed to load posts.");
+                });
+        }
+
+        // 특정 게시글을 수정할 때 로드하는 함수
+        function loadPostForEditing(id) {
+            axios.get('/posts/' + id)
+                .then(function (response) {
+                    const post = response.data;
+                    currentEditingId = post.id;
+                    document.getElementById("title").value = post.title;
+                    document.getElementById("content").value = post.content;
+                    document.getElementById("createButton").style.display = 'none';
+                    document.getElementById("updateButton").style.display = 'inline';
+                })
+                .catch(function (error) {
+                    console.error("Error loading post for editing:", error);
+                    alert("Failed to load the post for editing.");
+                });
+        }
+
+        // 게시글 수정 후 폼 초기화
+        function resetForm() {
+            currentEditingId = null;
+            document.getElementById("title").value = '';
+            document.getElementById("content").value = '';
+            document.getElementById("createButton").style.display = 'inline';
+            document.getElementById("updateButton").style.display = 'none';
+        }
+
+        // 게시글 삭제 함수
+        function deletePost(id) {
+            axios.delete('/posts/' + id)
+                .then(function (response) {
+                    console.log(response);
+                    loadPosts();
+                })
+                .catch(function (error) {
+                    console.error("Error deleting post:", error);
+                    alert("Failed to delete the post.");
+                });
+        }
+
+        // 폼 제출 시 'Create Post' 동작
+        document.getElementById("postForm").addEventListener("submit", submitCreateForm);
+
+        // 초기 게시글 목록 로드
+        loadPosts();
+    </script>
+</body>
+</html>
