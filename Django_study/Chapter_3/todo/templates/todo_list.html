@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #eaeaea;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        li:hover {
+            background: #d4d4d4;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        {% if request.user.is_authenticated %}
+            <div style="text-align: right; font-size: 20px; display: flex; justify-content: space-between">
+                {{ request.user.username }}
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button style="border: 0; font-size: 20px">Logout</button>
+                </form>
+            </div>
+        {% else %}
+            <div style="display: flex; justify-content: right; font-size: 20px;">
+                <a href="{% url 'signup' %}" style="margin-right: 10px">SignUp</a>
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+        {% endif %}
+    </nav>
+    <div class="container" style="margin-top: 15px">
+        {% if request.user.is_authenticated %}
+        <h1>{{ request.user.username }}의 Todo List</h1>
+        <ul>
+            {% for todo in data %}
+                <li><a href="{% url 'todo_info' todo.id %}">{{ todo.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <h1>회원가입 또는 로그인을 진행해주세요.</h1>
+        {% endif %}
+    </div>
+</body>
+</html>
