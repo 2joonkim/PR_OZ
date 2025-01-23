@@ -1,0 +1,163 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        padding: 10px;
+        margin: 5px 0;
+        background: #eaeaea;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+    li:hover {
+        background: #d4d4d4;
+    }
+    a {
+        text-decoration: none;
+        color: #333;
+    }
+    /* 버튼 스타일 */
+    .create-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 20%;
+        height: 20%;
+        font-size: 16px;
+    }
+
+    .create-button:hover {
+        background-color: #0056b3;
+    }
+    /* 페이지네이션 스타일 */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination a, .pagination span {
+        color: #007bff;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+    }
+    .pagination p {
+        color: gray;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        margin: 0;
+    }
+    .pagination p:hover {
+        background-color: #ddd;
+        border-radius: 5px;
+        cursor: not-allowed;
+    }
+    .pagination a.active {
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+    }
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+    }
+    /* 입력 필드 스타일 */
+    input[type="text"] {
+        width: 50%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+    /* 버튼 스타일 */
+    .search-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<div class="container" style="margin-top: 15px">
+    {% if request.user.is_authenticated %}
+    <div style="display: flex; justify-content: space-between">
+    {% if not request.user.is_staff %}
+        <h1>{{ request.user.username }}'s Todo List</h1>
+    {% else %}
+        <h1>All To Do List (By. Admin)</h1>
+    {% endif %}
+        <button class="create-button" onclick="location.href='{% url 'cbv_todo_create' %}'">생성하기</button>
+    </div>
+    <form method="GET" style="margin: 10px">
+        <input type="text" placeholder="제목 또는 내용을 입력하세요." name="q" value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}">
+        <button class="search-button">Search</button>
+    </form>
+    <ul>
+        {% for todo in page_obj.object_list %}
+            <li><a href="{% url 'todo_info' todo.id %}">[{{ todo.user.username }}] {{ todo.title }}</a></li>
+        {% endfor %}
+    </ul>
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% else %}
+            <p>&laquo; First</p>
+            <p>Previous</p>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                {% if num == page_obj.number %}
+                    <span class="active" style="border-radius: 4px; background-color: #fff122">{{ num }}</span>
+                {% else %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% else %}
+            <p>Next</p>
+            <p>Last &raquo;</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

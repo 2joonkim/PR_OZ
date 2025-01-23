@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+</head>
+<body>
+    <nav style="display: flex; justify-content: space-between">
+        <div>
+            <a style="font-size: 20px" href={% url 'cbv_todo_list' %}>Home</a>
+        </div>
+        {% if request.user.is_authenticated %}
+            <div style="text-align: right; font-size: 20px; display: flex; justify-content: space-between">
+                {{ request.user.username }}
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button style="border: 0; font-size: 20px; cursor: pointer">Logout</button>
+                </form>
+            </div>
+        {% else %}
+            <div style="display: flex; justify-content: right; font-size: 20px;">
+                <a href="{% url 'signup' %}" style="margin-right: 10px">SignUp</a>
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+        {% endif %}
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>
