@@ -1,0 +1,23 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="text-center">
+        <h1 class="mb-5">이메일 인증에 성공하였습니다.</h1>
+        <p class="text-primary" id="redirectText">5초 후 로그인 페이지로 이동합니다.</p>
+    </div>
+</div>
+<script>
+    let countdown = 5;
+    const redirectText = document.getElementById('redirectText');
+    
+    const interval = setInterval(() => {
+        countdown--;
+        redirectText.textContent = `${countdown}초 후 로그인 페이지로 이동합니다.`;
+        
+        if (countdown <= 0) {
+            clearInterval(interval);
+            window.location.href = '/users/login'; // 리다이렉트할 URL을 적어주세요.
+        }
+    }, 1000);
+</script>
+{% endblock %}

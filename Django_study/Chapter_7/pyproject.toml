@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "chapter-02"
+version = "0.1.0"
+description = ""
+authors = ["meoyoug <eodyd426@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.7"
+django-extensions = "^3.2.3"
+django-summernote = "^0.8.20.0"
+pillow = "^10.4.0"
+django-cleanup = "^8.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

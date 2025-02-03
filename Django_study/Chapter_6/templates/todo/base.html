@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+</head>
+<body>
+    <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-black bg-opacity-10">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'cbv_todo_list' %}" style="font-size: 20px">Home</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                {% if request.user.is_authenticated %}
+                    <div class="d-flex align-items-center">
+                        <span class="navbar-text me-2">{{ request.user.username }}</span>
+                        <form action="{% url 'logout' %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <button class="btn btn-link text-decoration-none" style="font-size: 20px;">Logout</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="d-flex">
+                        <a href="{% url 'signup' %}" class="btn btn-outline-primary me-2">SignUp</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <script src="{% static "js/bootstrap.bundle.js" %}"></script>
+    {% block content %}{% endblock %}
+</body>
+</html>
