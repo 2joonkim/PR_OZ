@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>설문조사 양식</title>
+</head>
+<body>
+    <header>
+        <h1>설문조사 양식</h1>
+        <p>모든 항목에 빠짐없이 체크해주십시오.</p>
+    </header>
+    <hr>
+    <main>
+        <form>
+            <fieldset>
+                <legend>개인정보</legend>
+                <label for="name">이름</label>
+                <input tpye="text" id="name" name="name" placeholder="본명을 입력하세요">
+                <br>
+                <label for="email">이메일</label>
+                <input tpye="email" id="email" name="email" placeholder="메일 주소를 입력하세요">
+            </fieldset>
+            <fieldset>
+                <legend>설문</legend>
+                <p>연령대가 어떻게 되십니까?</p>
+                    <input type="radio" name="age">
+                    <label for="teen">10대</label>
+                    <input type="radio" name="age">
+                    <label for="twenty">20대</label>
+                    <input type="radio" name="age">
+                    <label for="thirty">30대</label>
+                    <input type="radio" name="age">
+                    <label for="fourty">40대</label>
+                    <input type="radio" name="age">
+                    <label for="fifty">50대</label>
+                    <input type="radio" name="age">
+                    <label for="other">그 외</label>
+                    <p>본인의 개발 능력이 어디까지라고 생각하시나요?</p>
+                    <input type="radio" name="level">
+                    <label for="none">개발을 전혀 모른다</label>
+                    <input type="radio" name="level">
+                    <label for="little">조금 알고 있다</label>
+                    <input type="radio" name="level">
+                    <label for="middle">어느정도 개발이 가능하다</label>
+                    <input type="radio" name="level">
+                    <label for="high">무리없이 개발이 가능하다</label>
+                    <input type="radio" name="level">
+                    <label for="good">프로젝트 하나를 혼자서 수행이 가능하다</label>
+                    <input type="radio" name="level">
+                    <label for="perpect">팀 단위로 대형 프로젝트를 2개 이상 진행했다</label>
+                <p>선호하는 학습과정은 어느 과정일까요?(중복가능)</p>
+                    <input type="checkbox" id="python" name="study">
+                    <label for="position">Python</label>
+                    <input type="checkbox" id="AWS" name="study">
+                    <label for="price">AWS (Data Architecture)</label>
+                    <input type="checkbox" id="html" name="study">
+                    <label for="teacher">HTML</label>
+                    <input type="checkbox" id="linux" name="study">
+                    <label for="infra">Linux</label>
+                    <input type="checkbox" id="java" name="study">
+                    <label for="infra">Java</label>
+                <p>학원 선택 시 기준은 어떻게 되십니까?(중복가능)</p>
+                    <input type="checkbox" id="position" name="academy">
+                    <label for="position">위치</label>
+                    <input type="checkbox" id="price" name="academy">
+                    <label for="price">비용</label>
+                    <input type="checkbox" id="teacher" name="academy">
+                    <label for="teacher">강사진</label>
+                    <input type="checkbox" id="infra" name="academy">
+                    <label for="infra">시설</label>
+            </fieldset>
+            <fieldset>
+                <legend>기타 의견</legend>
+                <textarea row="20" cols="30" name="comment"></textarea>
+            </fieldset>
+            <input type="submit">
+        </form>
+    </main>
+    <hr>
+    <footer>
+        <p>입력하느라 수고하셨습니다.</p>
+    </footer>
+</body>
+</html>

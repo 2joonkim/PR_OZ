@@ -1,0 +1,84 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    color: #333;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    padding: 10px;
+    margin: 5px 0;
+    background: #eaeaea;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+li:hover {
+    background: #d4d4d4;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+/* 폼 스타일 */
+.todo-update-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-update-form p {
+    margin: 10px 0;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], input[type="date"], textarea {
+    width: 93%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+/* 버튼 스타일 */
+.update-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+</style>
+<div class="container" style="margin-top: 50px">
+    {% if request.user.is_authenticated %}
+        <form class="todo-update-form" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="update-button">Update</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

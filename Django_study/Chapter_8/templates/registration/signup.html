@@ -1,0 +1,30 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="w-50">
+        <form method="POST">
+            <div class="d-flex justify-content-start">
+                <h1 class="mb-5 text-center">회원가입</h1>
+            </div>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group row mb-3">
+                    <label class="form-label col-md-3" for="{{ field.auto_id }}">{{ field.label }}</label>
+                    <div class="col-md-9 mb-2">
+                        {{ field }}
+                    </div>
+                    {% for error in field.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mt-5 col-4">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

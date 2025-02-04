@@ -1,0 +1,50 @@
+<!-- 페이지네이션 -->
+<nav>
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1{% if fragment == 'comment_wrapper' %}#{{ fragment }}{% endif %}">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if fragment == 'comment_wrapper' %}#{{ fragment }}{% endif %}">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <p class="page-link">&laquo; First</p>
+            </li>
+            <li class="page-item disabled">
+                <p class="page-link">Previous</p>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                {% if num == page_obj.number %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}{% if fragment == 'comment_wrapper' %}#{{ fragment }}{% endif %}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if fragment == 'comment_wrapper' %}#{{ fragment }}{% endif %}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if fragment == 'comment_wrapper' %}#{{ fragment }}{% endif %}">Last &raquo;</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <p class="page-link">Next</p>
+            </li>
+            <li class="page-item disabled">
+                <p class="page-link">Last &raquo;</p>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

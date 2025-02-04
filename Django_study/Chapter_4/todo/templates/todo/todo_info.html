@@ -1,0 +1,84 @@
+<!-- todo / todo_info.html -->
+
+{% extends 'todo/base.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background: #f0f0f0;
+    }
+    a {
+        text-decoration: none;
+        color: #333;
+    }
+    /* 버튼 스타일 */
+    .button-group {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .button-group:hover {
+        background-color: #0056b3;
+    }
+
+    #delete-button {
+        background-color: #ff1122;
+    }
+    #delete-button:hover {
+        background-color: #cc1122;
+    }
+</style>
+<div class="container">
+    <div style="display: flex; justify-content: space-between">
+        <h1>{{ todo.title }}</h1>
+        <div>
+            <button class="button-group" onclick="location.href='{% url 'todo_update' todo.id %}'">수정하기</button>
+            <button class="button-group" id="delete-button" onclick="location.href='{% url 'todo_delete' todo.id %}'">삭제하기</button>
+        </div>
+    </div>
+    <table>
+        {% for key, value in todo.items %}
+		        <!-- todo.__dict__ 에서 사용하지 않을 값들은 if 조건절로 배제해줍니다. -->
+            {% if key != 'title' and key != 'id' and key != 'user_id' and key != '_state'%}
+                <tr>
+                    <th>{{ key }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
